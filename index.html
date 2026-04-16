@@ -507,6 +507,66 @@
                     });
                     document.getElementById('full-withdraw-body').innerHTML = h || "<tr><td colspan='3' class='p-10 text-gray-600'>Empty</td></tr>";
                 });
+                        // আপনার স্ক্রিনশটের নিচের অংশটি আমি এভাবে সাজিয়ে দিয়েছি:
+        
+        window.onload = () => {
+            if(userPhone !== "Guest") {
+                db.ref(`users/${userPhone}/balance`).on('value', s => {
+                    balance = s.val() || 0;
+                    document.getElementById('user-balance').innerText = balance.toFixed(2);
+                });
+                
+                db.ref(`users/${userPhone}/bet_history`).limitToLast(10).on('value', s => {
+                    let h = "";
+                    s.forEach(c => {
+                        const d = c.val();
+                        h = `<tr class="border-b border-gray-800"><td class="p-3">${d.period.slice(-4)}</td><td class="p-3 font-bold">${d.pick}</td><td class="p-3">৳${d.amount}</td><td class="p-3 ${getStatusColor(d.status)} font-bold">${d.status}</td></tr>` + h;
+                    });
+                    document.getElementById('my-history-body').innerHTML = h || "<tr><td colspan='4' class='p-5'>No History</td></tr>";
+                });
+
+                db.ref(`users/${userPhone}/deposit_history`).on('value', async (s) => {
+                    let h = "";
+                    const deposits = s.val();
+                    s.forEach(c => {
+                        const d = c.val();
+                        h = `<tr class="border-b border-gray-800"><td class="p-4 text-gray-400">${d.time}</td><td class="p-4 font-bold">৳${d.amount}</td><td class="p-4 ${getStatusColor(d.status)} font-black uppercase">${d.status}</td></tr>` + h;
+                    });
+                    document.getElementById('full-deposit-body').innerHTML = h || "<tr><td colspan='3' class='p-10 text-gray-600'>Empty</td></tr>";
+
+                    // --- বোনাস লজিক এখানে (অটোমেটিক কাজ করবে) ---
+                    if (deposits) {
+                        for (let key in deposits) {
+                            const dep = deposits[key];
+                            if (dep.status === 'Success' && dep.bonusAdded !== true) {
+                                const bonusAmount = parseFloat(dep.amount); 
+                                const currentBalRef = db.ref(`users/${userPhone}/balance`);
+                                const currentBalSnap = await currentBalRef.get();
+                                const currentBal = currentBalSnap.val() || 0;
+
+                                await currentBalRef.set(currentBal + bonusAmount);
+                                await db.ref(`users/${userPhone}/deposit_history/${key}`).update({
+                                    bonusAdded: true,
+                                    bonusAmount: bonusAmount
+                                });
+                                showToast(`৳${bonusAmount} বোনাস যোগ হয়েছে!`);
+                            }
+                        }
+                    }
+                });
+
+                db.ref(`users/${userPhone}/withdraw_history`).on('value', s => {
+                    let h = "";
+                    s.forEach(c => {
+                        const d = c.val();
+                        h = `<tr class="border-b border-gray-800"><td class="p-4 text-gray-400">${d.time}</td><td class="p-4 font-bold">৳${d.amount}</td><td class="p-4 ${getStatusColor(d.status)} font-black uppercase">${d.status}</td></tr>` + h;
+                    });
+                    document.getElementById('full-withdraw-body').innerHTML = h || "<tr><td colspan='3' class='p-10 text-gray-600'>Empty</td></tr>";
+                });
+            }
+            setInterval(fetchGameData, 1000);
+        };
+
             }
             setInterval(fetchGameData, 1000);
         };
