@@ -5,17 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>B999 CLUB | Win Go Official</title>
     
-    <meta name="description" content="B999 CLUB - অনলাইনে গেম খেলে বিনোদন এবং প্রেডিকশনের সেরা প্ল্যাটফর্ম। এখনই জয়েন করুন।">
-    <meta name="keywords" content="B999 CLUB, B999, B999 Game, Online Gaming Bangladesh, B999 official, Tanvir B999">
-    <meta name="author" content="Tanvir">
-    <meta property="og:title" content="B999 CLUB | Official Site">
-    <meta property="og:description" content="বেস্ট গেমিং এক্সপেরিয়েন্সের জন্য B999 CLUB-এ ভিজিট করুন।">
-    <meta property="og:url" content="https://tanvir323-l.github.io/B999-CLUB-/">
+    <meta name="description" content="B999 CLUB - অনলাইনে গেম খেলে বিনোদন এবং প্রেডিকশনের সেরা প্ল্যাটফর্ম।">
     <meta name="google-site-verification" content="MER1FOqqinjyoHCT9SyUifz5CbPb3r6Qks7eExku3f8" />
+    <meta property="og:url" content="https://tanvir323-l.github.io/B999-CLUB-/">
     
     <link rel="icon" type="image/png" href="https://img.icons8.com/external-flat-icons-inmotus-design/67/external-B-alphabet-flat-icons-inmotus-design-2.png">
-    <link rel="apple-touch-icon" href="https://img.icons8.com/external-flat-icons-inmotus-design/192/external-B-alphabet-flat-icons-inmotus-design-2.png">
-    <meta property="og:image" content="https://img.icons8.com/external-flat-icons-inmotus-design/480/external-B-alphabet-flat-icons-inmotus-design-2.png">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -23,168 +17,119 @@
     <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-database-compat.js"></script>
 
     <style>
-        :root { 
-            --primary: #8e2de2; --secondary: #4a00e0; --accent: #00f2fe; --card-bg: #1e293b; --text-light: #f1f5f9;
-            --hgzy-gradient: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-        }
-        body { background-color: #020617; color: var(--text-light); font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; user-select: none; }
-        .gradient-main { background: var(--hgzy-gradient); }
-        .tab-active { color: white !important; background: var(--primary) !important; border-radius: 12px 12px 0 0; }
-        .mode-btn { background-color: var(--card-bg); border: 1px solid #334155; }
-        .mode-btn-active { background-color: var(--primary) !important; border: 2px solid var(--accent) !important; transform: scale(1.05); }
-        #bet-popup, #deposit-popup, #withdraw-popup, #history-modal { background: var(--card-bg); border-radius: 25px 25px 0 0; border-top: 1px solid rgba(255,255,255,0.1); }
-        .btn-val.active { background: var(--primary); color: white; border-color: var(--accent); }
+        :root { --primary: #8e2de2; --secondary: #4a00e0; --accent: #00f2fe; --card-bg: #1e293b; }
+        body { background-color: #020617; color: white; font-family: sans-serif; -webkit-tap-highlight-color: transparent; }
+        .gradient-main { background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); }
+        .tab-active { color: white !important; background: var(--primary) !important; border-radius: 12px; }
+        .mode-btn-active { background-color: var(--primary) !important; border: 2px solid var(--accent) !important; }
         
-        #win-popup-wrapper { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,0.85); z-index: 10000; }
-        .win-box { background: linear-gradient(180deg, #ffde6a 0%, #ff8a00 100%); width: 85%; max-width: 320px; border-radius: 30px; text-align: center; padding: 30px; box-shadow: 0 0 50px rgba(255,165,0,0.5); animation: zoomIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .win-close-btn { background: #fff; color: #ff8a00; font-weight: 900; padding: 12px 40px; border-radius: 50px; margin-top: 20px; }
-        @keyframes zoomIn { from {transform: scale(0.5); opacity: 0;} to {transform: scale(1); opacity: 1;} }
-
-        #auth-screen { position: fixed; inset: 0; background: #020617; z-index: 99999; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
-        .auth-card { background: var(--card-bg); width: 100%; max-width: 400px; padding: 30px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); }
-        .auth-input { width: 100%; background: #0f172a; border: 1px solid #334155; padding: 15px; border-radius: 15px; margin-bottom: 12px; color: white; outline: none; }
+        /* Popup Styles */
+        #bet-popup, #deposit-popup, #withdraw-popup { 
+            position: fixed; bottom: 0; left: 0; width: 100%; z-index: 5000; 
+            background: var(--card-bg); border-radius: 25px 25px 0 0; 
+            transform: translateY(100%); transition: 0.3s ease; visibility: hidden;
+        }
+        .show-popup { transform: translateY(0) !important; visibility: visible !important; }
+        #overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 4000; display: none; }
     </style>
 </head>
-<body class="pb-24">
+<body class="pb-20">
 
-    <div id="auth-screen">
-        <div class="auth-card">
-            <h1 class="text-3xl font-black italic text-center mb-8 uppercase text-white">B999 <span class="text-[--accent]">CLUB</span></h1>
+    <div id="auth-screen" class="fixed inset-0 bg-[#020617] z-[9999] flex items-center justify-center p-5">
+        <div class="bg-[#1e293b] w-full max-w-sm p-8 rounded-[35px] border border-white/10 shadow-2xl">
+            <h1 class="text-3xl font-black italic text-center mb-8 uppercase">B999 <span class="text-[--accent]">CLUB</span></h1>
+            
             <div id="login-form">
-                <input type="number" id="auth-phone" placeholder="Phone Number" class="auth-input">
-                <input type="password" id="auth-pass" placeholder="Password" class="auth-input">
-                <button onclick="handleAuth('login')" class="w-full gradient-main py-4 rounded-2xl font-black text-white shadow-lg mb-4">LOGIN</button>
-                <p class="text-center text-sm text-gray-400">Don't have an account? <span onclick="toggleAuth()" class="text-[--accent] font-bold cursor-pointer">Register</span></p>
+                <input type="number" id="auth-phone" placeholder="Phone Number" class="w-full bg-[#0f172a] border border-slate-700 p-4 rounded-2xl mb-3 outline-none focus:border-[--primary]">
+                <input type="password" id="auth-pass" placeholder="Password" class="w-full bg-[#0f172a] border border-slate-700 p-4 rounded-2xl mb-4 outline-none focus:border-[--primary]">
+                <button onclick="handleAuth('login')" class="w-full gradient-main py-4 rounded-2xl font-bold shadow-lg">LOGIN</button>
+                <p class="text-center mt-4 text-sm text-gray-400">New here? <span onclick="toggleAuth()" class="text-[--accent] font-bold cursor-pointer">Register Now</span></p>
             </div>
+
             <div id="register-form" class="hidden">
-                <input type="number" id="reg-phone" placeholder="Phone Number" class="auth-input">
-                <input type="password" id="reg-pass" placeholder="Set Password" class="auth-input">
-                <input type="password" id="reg-confirm" placeholder="Confirm Password" class="auth-input">
-                <button onclick="handleAuth('register')" class="w-full bg-green-600 py-4 rounded-2xl font-black text-white shadow-lg mb-4">REGISTER</button>
-                <p class="text-center text-sm text-gray-400">Already have an account? <span onclick="toggleAuth()" class="text-[--accent] font-bold cursor-pointer">Login</span></p>
+                <input type="number" id="reg-phone" placeholder="Phone Number" class="w-full bg-[#0f172a] border border-slate-700 p-4 rounded-2xl mb-3 outline-none focus:border-[--primary]">
+                <input type="password" id="reg-pass" placeholder="Set Password" class="w-full bg-[#0f172a] border border-slate-700 p-4 rounded-2xl mb-3 outline-none focus:border-[--primary]">
+                <input type="password" id="reg-confirm" placeholder="Confirm Password" class="w-full bg-[#0f172a] border border-slate-700 p-4 rounded-2xl mb-4 outline-none focus:border-[--primary]">
+                <button onclick="handleAuth('register')" class="w-full bg-green-600 py-4 rounded-2xl font-bold shadow-lg">REGISTER</button>
+                <p class="text-center mt-4 text-sm text-gray-400">Have an account? <span onclick="toggleAuth()" class="text-[--accent] font-bold cursor-pointer">Login</span></p>
             </div>
         </div>
     </div>
 
     <div id="game-content" style="display: none;">
-        
-        <div id="win-popup-wrapper">
-            <div class="win-box">
-                <div class="text-6xl mb-4">🏆</div>
-                <h1 class="text-2xl font-black text-white">Congratulations</h1>
-                <div class="text-4xl font-black text-white my-4">৳<span id="win-amount-text">0.00</span></div>
-                <button onclick="closeWinPopup()" class="win-close-btn">CLOSE</button>
-            </div>
-        </div>
+        <div id="overlay" onclick="closePopups()"></div>
 
-        <div class="gradient-main p-5 rounded-b-[40px] shadow-lg">
-            <div class="flex justify-between items-center mb-6 text-white px-2">
-                <button onclick="logout()"><i class="fa-solid fa-right-from-bracket text-lg"></i></button>
-                <h1 class="text-2xl font-black italic tracking-tighter uppercase">B999 <span class="text-[--accent]">CLUB</span></h1>
-                <i class="fa-solid fa-headphones-simple"></i>
+        <div class="gradient-main p-6 rounded-b-[45px] shadow-xl">
+            <div class="flex justify-between items-center mb-6">
+                <button onclick="logout()" class="p-2"><i class="fa-solid fa-power-off text-xl"></i></button>
+                <h1 class="text-2xl font-black italic italic tracking-tighter uppercase">B999 <span class="text-[--accent]">CLUB</span></h1>
+                <i class="fa-solid fa-headset text-xl"></i>
             </div>
-            <div style="background: var(--card-bg);" class="rounded-[30px] p-6 text-center border border-white/10">
-                <p class="text-[10px] text-gray-400 font-bold uppercase mb-1">Available Balance</p>
-                <div class="text-4xl font-black text-white mb-6 flex justify-center items-center gap-2">
-                    <span class="text-[--accent]">৳</span><span id="user-balance">0.00</span>
-                </div>
+            <div class="bg-[#1e293b] rounded-[30px] p-6 text-center border border-white/10">
+                <p class="text-xs text-gray-400 font-bold uppercase mb-1">Total Balance</p>
+                <div class="text-4xl font-black mb-6">৳<span id="user-balance">0.00</span></div>
                 <div class="flex gap-4">
-                    <button onclick="openWithdrawPopup()" class="flex-1 bg-slate-800 text-slate-300 font-bold py-3.5 rounded-2xl">Withdraw</button>
-                    <button onclick="openDepositPopup()" class="flex-1 gradient-main text-white font-bold py-3.5 rounded-2xl">Deposit</button>
+                    <button onclick="openWithdraw()" class="flex-1 bg-slate-800 py-3 rounded-2xl font-bold">Withdraw</button>
+                    <button onclick="openDeposit()" class="flex-1 gradient-main py-3 rounded-2xl font-bold">Deposit</button>
                 </div>
             </div>
         </div>
 
-        <div class="grid grid-cols-4 gap-2 p-4">
-            <button onclick="switchMode('30s')" id="btn-30s" class="mode-btn rounded-2xl p-3 flex flex-col items-center"><i class="fa-solid fa-clock mb-1"></i><p class="text-[10px] font-bold">30s</p></button>
-            <button onclick="switchMode('1m')" id="btn-1m" class="mode-btn mode-btn-active rounded-2xl p-3 flex flex-col items-center"><i class="fa-solid fa-clock mb-1"></i><p class="text-[10px] font-bold">1m</p></button>
-            <button onclick="switchMode('3m')" id="btn-3m" class="mode-btn rounded-2xl p-3 flex flex-col items-center"><i class="fa-solid fa-clock mb-1"></i><p class="text-[10px] font-bold">3m</p></button>
-            <button onclick="switchMode('5m')" id="btn-5m" class="mode-btn rounded-2xl p-3 flex flex-col items-center"><i class="fa-solid fa-clock mb-1"></i><p class="text-[10px] font-bold">5m</p></button>
-        </div>
-
-        <div class="gradient-main mx-4 rounded-3xl p-5 shadow-xl flex justify-between items-center relative overflow-hidden">
-            <div><p id="display-mode-label" class="text-[10px] font-bold text-blue-100 uppercase mb-2">Win Go 1m</p><p id="current-period" class="text-lg font-bold tracking-tighter text-white">Loading...</p></div>
-            <div class="text-right border-l border-white/20 pl-5"><p class="text-[10px] font-bold text-blue-100 mb-1">Time Left</p><div class="font-mono text-4xl font-black text-white" id="timer-display"><span id="timer-min">00</span>:<span id="timer-sec">00</span></div></div>
-        </div>
-
-        <div class="p-4 mt-2">
-            <div class="grid grid-cols-3 gap-3 mb-4">
-                <button onclick="openBet('Green', '#10b981')" class="bg-green-500 text-white font-black py-4 rounded-2xl">Green</button>
-                <button onclick="openBet('Violet', '#8b5cf6')" class="bg-purple-500 text-white font-black py-4 rounded-2xl">Violet</button>
-                <button onclick="openBet('Red', '#ef4444')" class="bg-red-500 text-white font-black py-4 rounded-2xl">Red</button>
+        <div class="bg-[#1e293b] mx-4 mt-6 rounded-3xl p-5 flex justify-between items-center border border-white/5">
+            <div>
+                <p id="display-mode" class="text-[10px] font-bold text-blue-400 uppercase">Win Go 1m</p>
+                <p id="current-period" class="text-lg font-mono font-bold">Loading...</p>
             </div>
-            <div style="background: var(--card-bg);" class="p-5 rounded-[30px] border border-white/5">
-                <div class="grid grid-cols-5 gap-4 mb-6">
-                    <button onclick="openBet('0', '#8b5cf6')" class="w-10 h-10 rounded-full bg-purple-500 text-white font-bold mx-auto">0</button>
-                    <button onclick="openBet('1', '#10b981')" class="w-10 h-10 rounded-full bg-green-500 text-white font-bold mx-auto">1</button>
-                    <button onclick="openBet('2', '#ef4444')" class="w-10 h-10 rounded-full bg-red-500 text-white font-bold mx-auto">2</button>
-                    <button onclick="openBet('3', '#10b981')" class="w-10 h-10 rounded-full bg-green-500 text-white font-bold mx-auto">3</button>
-                    <button onclick="openBet('4', '#ef4444')" class="w-10 h-10 rounded-full bg-red-500 text-white font-bold mx-auto">4</button>
-                    <button onclick="openBet('5', '#10b981')" class="w-10 h-10 rounded-full bg-green-500 text-white font-bold mx-auto">5</button>
-                    <button onclick="openBet('6', '#ef4444')" class="w-10 h-10 rounded-full bg-red-500 text-white font-bold mx-auto">6</button>
-                    <button onclick="openBet('7', '#10b981')" class="w-10 h-10 rounded-full bg-green-500 text-white font-bold mx-auto">7</button>
-                    <button onclick="openBet('8', '#ef4444')" class="w-10 h-10 rounded-full bg-red-500 text-white font-bold mx-auto">8</button>
-                    <button onclick="openBet('9', '#10b981')" class="w-10 h-10 rounded-full bg-green-500 text-white font-bold mx-auto">9</button>
-                </div>
-                <div class="flex gap-3">
-                    <button onclick="openBet('Big', '#f59e0b')" class="flex-1 bg-orange-400 text-white font-black py-3 rounded-xl">BIG</button>
-                    <button onclick="openBet('Small', '#3b82f6')" class="flex-1 bg-blue-500 text-white font-black py-3 rounded-xl">SMALL</button>
-                </div>
+            <div class="text-right border-l border-white/10 pl-5">
+                <p class="text-[10px] font-bold text-gray-400 mb-1">TIME LEFT</p>
+                <div class="text-3xl font-black text-[--accent]" id="timer-display">00:00</div>
             </div>
         </div>
 
-        <div class="px-4 mt-2">
-            <div class="bg-slate-900 rounded-t-2xl flex p-1">
-                <button onclick="switchTab('records')" id="tab-records" class="flex-1 p-3 font-bold text-gray-400">Game history</button>
+        <div class="p-4 grid grid-cols-3 gap-3">
+            <button onclick="openBet('Green', '#10b981')" class="bg-green-500 py-4 rounded-2xl font-black">Green</button>
+            <button onclick="openBet('Violet', '#8b5cf6')" class="bg-purple-500 py-4 rounded-2xl font-black">Violet</button>
+            <button onclick="openBet('Red', '#ef4444')" class="bg-red-500 py-4 rounded-2xl font-black">Red</button>
+        </div>
+
+        <div class="px-4">
+            <div class="bg-slate-900 rounded-2xl flex p-1">
                 <button onclick="switchTab('my')" id="tab-my" class="flex-1 p-3 font-bold tab-active">My History</button>
+                <button onclick="switchTab('records')" id="tab-records" class="flex-1 p-3 font-bold text-gray-400">Game Records</button>
             </div>
-            <div id="content-records" class="hidden bg-[#1e293b] min-h-[300px] rounded-b-2xl overflow-hidden">
+            <div id="content-my" class="mt-2 bg-[#1e293b] rounded-2xl min-h-[200px] overflow-hidden">
                 <table class="w-full text-center text-xs">
-                    <thead><tr class="text-gray-400 border-b border-gray-700"><th class="p-3">Period</th><th class="p-3">Num</th><th class="p-3">Size</th></tr></thead>
-                    <tbody id="records-body"></tbody>
-                </table>
-            </div>
-            <div id="content-my" class="bg-[#1e293b] min-h-[300px] rounded-b-2xl overflow-hidden">
-                <table class="w-full text-center text-[10px]">
-                    <thead><tr class="text-gray-400 border-b border-gray-700"><th class="p-3">Period</th><th class="p-3">Pick</th><th class="p-3">Amount</th><th class="p-3">Status</th></tr></thead>
+                    <thead class="bg-black/20 text-gray-400"><tr><th class="p-3">Period</th><th class="p-3">Pick</th><th class="p-3">Amount</th><th class="p-3">Status</th></tr></thead>
                     <tbody id="my-history-body"></tbody>
                 </table>
             </div>
+            <div id="content-records" class="hidden mt-2 bg-[#1e293b] rounded-2xl min-h-[200px] overflow-hidden">
+                <table class="w-full text-center text-xs">
+                    <thead class="bg-black/20 text-gray-400"><tr><th class="p-3">Period</th><th class="p-3">Number</th><th class="p-3">Size</th></tr></thead>
+                    <tbody id="records-body"></tbody>
+                </table>
+            </div>
         </div>
 
-        <div id="bet-popup" class="fixed bottom-0 left-0 w-full z-[3000] invisible translate-y-full transition-transform duration-300">
-            <div id="pop-header" class="p-4 text-center text-white" style="clip-path: polygon(0 0, 100% 0, 100% 80%, 50% 100%, 0 80%);">
-                <div id="pop-title" class="text-sm font-bold uppercase">Win Go</div>
-                <div class="bg-white text-black px-5 py-1 rounded inline-block font-bold mt-2">Select <span id="popup-selection">?</span></div>
+        <div id="bet-popup">
+            <div id="pop-header" class="p-5 text-center font-bold rounded-t-2xl">
+                WIN GO: <span id="popup-selection" class="underline">?</span>
             </div>
-            <div class="p-5 space-y-6">
-                <div class="flex justify-between items-center"><span>Unit Price</span>
+            <div class="p-6 space-y-5">
+                <div class="flex justify-between">
+                    <span>Amount</span>
                     <div class="flex gap-2">
-                        <button onclick="setBase(1, this)" class="btn-val px-4 py-2 rounded bg-slate-800 active">1</button>
-                        <button onclick="setBase(10, this)" class="btn-val px-4 py-2 rounded bg-slate-800">10</button>
-                        <button onclick="setBase(100, this)" class="btn-val px-4 py-2 rounded bg-slate-800">100</button>
+                        <button onclick="setBase(10)" class="bg-slate-700 px-3 py-1 rounded">10</button>
+                        <button onclick="setBase(100)" class="bg-slate-700 px-3 py-1 rounded">100</button>
                     </div>
                 </div>
-                <div class="flex justify-between items-center"><span>Quantity</span>
-                    <div class="flex items-center gap-4">
-                        <button onclick="adjQty(-1)" class="w-8 h-8 bg-purple-600 rounded">-</button>
-                        <input type="number" id="qty-input" value="1" class="w-12 bg-transparent text-center font-bold outline-none">
-                        <button onclick="adjQty(1)" class="w-8 h-8 bg-purple-600 rounded">+</button>
-                    </div>
-                </div>
-            </div>
-            <div class="flex h-14">
-                <button onclick="closePopups()" class="flex-1 bg-slate-800 font-bold">Cancel</button>
-                <button id="pop-confirm-btn" onclick="confirmBet()" class="flex-[2] font-bold text-lg">Total ৳<span id="total-bet-display">1.00</span></button>
+                <button onclick="confirmBet()" id="confirm-btn" class="w-full py-4 rounded-2xl font-bold text-lg">Confirm ৳<span id="total-bet-text">10</span></button>
             </div>
         </div>
-
-        <div id="overlay" onclick="closePopups()" class="fixed inset-0 bg-black/60 z-[2500] hidden"></div>
-        <div id="toast-msg" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; padding: 15px 30px; border-radius: 50px; z-index: 9999; display: none; font-weight: bold; background: #1e293b; border: 1px solid var(--primary);"></div>
     </div>
 
     <script>
-        // Firebase Config
+        // Firebase Configuration (Encrypted)
         const firebaseConfig = {
             apiKey: atob("QUl6YVN5QkxGb0o0LXY1V0FwYjFGbGc4Y0VyZnFialc2NFhLaC1J"),
             authDomain: atob("YmV0LXdpbi04NGQzNS5maXJlYmFzZWFwcC5jb20="),
@@ -197,424 +142,126 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
 
-        let userPhone = localStorage.getItem('userPhone') || null;
-        let balance = 0, currentMode = '1m', currentPeriod = "", baseAmount = 1, qty = 1, tempBetPick = "", lastResultProcessed = "";
-        
-        const apiUrls = { 
-            '30s': 'https://draw.ar-lottery01.com/WinGo/WinGo_30S/GetHistoryIssuePage.json', 
-            '1m': 'https://draw.ar-lottery01.com/WinGo/WinGo_1M/GetHistoryIssuePage.json', 
-            '3m': 'https://draw.ar-lottery01.com/WinGo/WinGo_3M/GetHistoryIssuePage.json', 
-            '5m': 'https://draw.ar-lottery01.com/WinGo/WinGo_5M/GetHistoryIssuePage.json' 
-        };
+        let userPhone = localStorage.getItem('userPhone');
+        let balance = 0, currentPeriod = "", selectedPick = "", baseAmount = 10;
 
-        // Auth Logic
+        // --- Auth Functions ---
         async function handleAuth(type) {
             const phone = document.getElementById(type === 'login' ? 'auth-phone' : 'reg-phone').value;
             const pass = document.getElementById(type === 'login' ? 'auth-pass' : 'reg-pass').value;
-            if (!phone || phone.length < 10) return showToast("সঠিক ফোন নাম্বার দিন");
-            
-            const userRef = db.ref(`users/${phone}`);
-            const snap = await userRef.once('value');
 
-            if (type === 'register') {
-                const confirm = document.getElementById('reg-confirm').value;
-                if (pass !== confirm) return showToast("পাসওয়ার্ড মেলেনি");
-                if (snap.exists()) return showToast("নাম্বারটি আগে ব্যবহৃত হয়েছে");
-                await userRef.set({ password: pass, balance: 88 });
-                showToast("রেজিস্ট্রেশন সফল! ৮৮ টাকা বোনাস।");
-                loginUser(phone);
+            if(!phone || !pass) return alert("সব তথ্য দিন");
+
+            const ref = db.ref('users/' + phone);
+            const snap = await ref.once('value');
+
+            if(type === 'register') {
+                if(snap.exists()) return alert("এই নাম্বার অলরেডি আছে");
+                await ref.set({ password: pass, balance: 88 });
+                alert("রেজিস্ট্রেশন সফল! ৮৮ টাকা বোনাস দেওয়া হয়েছে।");
+                completeLogin(phone);
             } else {
-                if (snap.exists() && snap.val().password === pass) loginUser(phone);
-                else showToast("ভুল ফোন বা পাসওয়ার্ড");
+                if(snap.exists() && snap.val().password === pass) completeLogin(phone);
+                else alert("ভুল নাম্বার বা পাসওয়ার্ড");
             }
         }
 
-        function loginUser(phone) {
+        function completeLogin(phone) {
             userPhone = phone;
             localStorage.setItem('userPhone', phone);
             document.getElementById('auth-screen').style.display = 'none';
             document.getElementById('game-content').style.display = 'block';
-            initGame();
+            startApp();
         }
 
-        function logout() { localStorage.removeItem('userPhone'); location.reload(); }
-        function toggleAuth() { document.getElementById('login-form').classList.toggle('hidden'); document.getElementById('register-form').classList.toggle('hidden'); }
-
-        // Game Core
-        function initGame() {
-            db.ref(`users/${userPhone}/balance`).on('value', s => {
-                balance = s.val() || 0;
-                document.getElementById('user-balance').innerText = balance.toFixed(2);
-            });
-
-            db.ref(`users/${userPhone}/bet_history`).limitToLast(15).on('value', s => {
-                let html = "";
-                s.forEach(c => {
-                    const d = c.val();
-                    const statusClass = d.status === 'Win' ? 'text-green-500' : (d.status === 'Loss' ? 'text-red-500' : 'text-orange-400');
-                    html = `<tr class="border-b border-gray-800"><td class="p-3">${d.period.slice(-4)}</td><td class="p-3 font-bold">${d.pick}</td><td class="p-3">৳${d.amount}</td><td class="p-3 ${statusClass}">${d.status}</td></tr>` + html;
-                });
-                document.getElementById('my-history-body').innerHTML = html || "<tr><td colspan='4' class='p-5 text-gray-500'>No Data</td></tr>";
-            });
-            setInterval(fetchGameData, 1000);
-        }
-
-        async function fetchGameData() {
-            try {
-                const res = await fetch(apiUrls[currentMode]);
-                const json = await res.json();
-                const latest = json.data.list[0];
-                currentPeriod = (BigInt(latest.issueNumber) + 1n).toString();
-                document.getElementById('current-period').innerText = currentPeriod;
-
-                const duration = currentMode.includes('s') ? 30 : parseInt(currentMode) * 60;
-                const timeLeft = duration - (Math.floor(Date.now() / 1000) % duration);
-                
-                document.getElementById('timer-sec').innerText = String(timeLeft % 60).padStart(2, '0');
-                document.getElementById('timer-min').innerText = String(Math.floor(timeLeft / 60)).padStart(2, '0');
-
-                if (timeLeft === duration && lastResultProcessed !== latest.issueNumber) {
-                    checkWinning(latest);
-                    lastResultProcessed = latest.issueNumber;
-                }
-                renderHistory(json.data.list);
-            } catch (e) {}
-        }
-
-        async function checkWinning(result) {
-            const resNum = parseInt(result.number);
-            const resColor = (resNum % 2 === 0) ? "Red" : "Green";
-            const resSize = (resNum >= 5) ? "Big" : "Small";
-
-            const snapshot = await db.ref(`users/${userPhone}/bet_history`).once('value');
-            snapshot.forEach(async (child) => {
-                const bet = child.val();
-                if (bet.period === result.issueNumber && bet.status === 'Pending') {
-                    let win = false, winMult = 0;
-
-                    if (bet.pick === result.number) { win = true; winMult = 9; }
-                    else if (bet.pick === resColor) { win = true; winMult = 2; }
-                    else if (bet.pick === resSize) { win = true; winMult = 2; }
-                    else if (bet.pick === "Violet" && (resNum === 0 || resNum === 5)) { win = true; winMult = 4.5; }
-
-                    if (win) {
-                        const winAmt = bet.amount * winMult;
-                        const newBal = balance + winAmt;
-                        await db.ref(`users/${userPhone}`).update({ balance: newBal });
-                        await db.ref(`users/${userPhone}/bet_history/${child.key}`).update({ status: 'Win', winAmount: winAmt });
-                        showWinPopup(winAmt);
-                    } else {
-                        await db.ref(`users/${userPhone}/bet_history/${child.key}`).update({ status: 'Loss' });
-                    }
-                }
-            });
-        }
-
-        // UI Interactions
-        function openBet(pick, color) {
-            tempBetPick = pick;
-            document.getElementById('pop-header').style.backgroundColor = color;
-            document.getElementById('pop-confirm-btn').style.backgroundColor = color;
-            document.getElementById('popup-selection').innerText = pick;
-            const pop = document.getElementById('bet-popup');
-            pop.style.transform = "translateY(0)"; pop.style.visibility = "visible";
-            document.getElementById('overlay').classList.remove('hidden');
-            updatePopupTotal();
-        }
-
-        async function confirmBet() {
-            const total = parseFloat(document.getElementById('total-bet-display').innerText);
-            if (balance < total) return showToast("ব্যালেন্স কম আছে");
-            await db.ref(`users/${userPhone}`).update({ balance: balance - total });
-            await db.ref(`users/${userPhone}/bet_history`).push({ period: currentPeriod, pick: tempBetPick, amount: total, status: 'Pending' });
-            showToast("সফল হয়েছে!"); closePopups();
-        }
-
-        function updatePopupTotal() { 
-            const val = baseAmount * (parseInt(document.getElementById('qty-input').value) || 1);
-            document.getElementById('total-bet-display').innerText = val.toFixed(2); 
-        }
-
-        function setBase(v, el) { 
-            baseAmount = v; 
-            document.querySelectorAll('.btn-val').forEach(b => b.classList.remove('active')); 
-            el.classList.add('active'); 
-            updatePopupTotal(); 
-        }
-
-        function adjQty(n) { 
-            const input = document.getElementById('qty-input');
-            input.value = Math.max(1, (parseInt(input.value) || 1) + n); 
-            updatePopupTotal(); 
-        }
-
-        function closePopups() { 
-            document.querySelectorAll('#bet-popup, #deposit-popup, #withdraw-popup').forEach(p => { p.style.transform = "translateY(100%)"; p.style.visibility = "hidden"; }); 
-            document.getElementById('overlay').classList.add('hidden'); 
-        }
-
-        function showToast(m) { 
-            const t = document.getElementById('toast-msg'); t.innerText = m; t.style.display = 'block'; 
-            setTimeout(() => t.style.display = 'none', 3000); 
-        }
-
-        function renderHistory(list) {
-            document.getElementById('records-body').innerHTML = list.slice(0, 10).map(h => `
-                <tr class="border-b border-gray-800">
-                    <td class="p-3">${h.issueNumber}</td>
-                    <td class="p-3 font-bold" style="color:${parseInt(h.number)%2===0?'#ef4444':'#10b981'}">${h.number}</td>
-                    <td class="p-3 font-bold">${parseInt(h.number)>=5?'Big':'Small'}</td>
-                </tr>`).join('');
-        }
-
-        function showWinPopup(amt) { document.getElementById('win-amount-text').innerText = amt.toFixed(2); document.getElementById('win-popup-wrapper').style.display = 'flex'; }
-        function closeWinPopup() { document.getElementById('win-popup-wrapper').style.display = 'none'; }
-        function switchMode(m) { currentMode = m; document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('mode-btn-active')); document.getElementById('btn-'+m).classList.add('mode-btn-active'); fetchGameData
-        <div class="gradient-main p-5 rounded-b-[40px] shadow-lg">
-            <div class="flex justify-between items-center mb-6 text-white px-2">
-                <button onclick="logout()"><i class="fa-solid fa-right-from-bracket text-lg"></i></button>
-                <h1 class="text-2xl font-black italic tracking-tighter uppercase">B999 <span class="text-[--accent]">CLUB</span></h1>
-                <i class="fa-solid fa-headphones-simple"></i>
-            </div>
-            <div style="background: var(--card-bg);" class="rounded-[30px] p-6 text-center border border-white/10">
-                <p class="text-[10px] text-gray-400 font-bold uppercase mb-1">Available Balance</p>
-                <div class="text-4xl font-black text-white mb-6 flex justify-center items-center gap-2">
-                    <span class="text-[--accent]">৳</span><span id="user-balance">0.00</span>
-                </div>
-                <div class="flex gap-4">
-                    <button onclick="openWithdrawPopup()" class="flex-1 bg-slate-800 text-slate-300 font-bold py-3.5 rounded-2xl">Withdraw</button>
-                    <button onclick="openDepositPopup()" class="flex-1 gradient-main text-white font-bold py-3.5 rounded-2xl">Deposit</button>
-                </div>
-
-                <div class="flex gap-2 mt-4">
-                    <button onclick="showHistory('deposit')" class="flex-1 border border-white/10 bg-white/5 text-[10px] font-bold py-2 rounded-xl text-blue-300 uppercase">Deposit History</button>
-                    <button onclick="showHistory('withdraw')" class="flex-1 border border-white/10 bg-white/5 text-[10px] font-bold py-2 rounded-xl text-orange-300 uppercase">Withdraw History</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="grid grid-cols-4 gap-2 p-4">
-            <button onclick="switchMode('30s')" id="btn-30s" class="mode-btn rounded-2xl p-3 flex flex-col items-center"><i class="fa-solid fa-clock mb-1"></i><p class="text-[10px] font-bold">30s</p></button>
-            <button onclick="switchMode('1m')" id="btn-1m" class="mode-btn mode-btn-active rounded-2xl p-3 flex flex-col items-center"><i class="fa-solid fa-clock mb-1"></i><p class="text-[10px] font-bold">1m</p></button>
-            <button onclick="switchMode('3m')" id="btn-3m" class="mode-btn rounded-2xl p-3 flex flex-col items-center"><i class="fa-solid fa-clock mb-1"></i><p class="text-[10px] font-bold">3m</p></button>
-            <button onclick="switchMode('5m')" id="btn-5m" class="mode-btn rounded-2xl p-3 flex flex-col items-center"><i class="fa-solid fa-clock mb-1"></i><p class="text-[10px] font-bold">5m</p></button>
-        </div>
-
-        <div class="gradient-main mx-4 rounded-3xl p-5 shadow-xl flex justify-between items-center relative overflow-hidden">
-            <div><p id="display-mode-label" class="text-[10px] font-bold text-blue-100 uppercase mb-2">Win Go 1m</p><p id="current-period" class="text-lg font-bold tracking-tighter text-white">Loading...</p></div>
-            <div class="text-right border-l border-white/20 pl-5"><p class="text-[10px] font-bold text-blue-100 mb-1">Time Left</p><div class="font-mono text-4xl font-black text-white" id="timer-display"><span id="timer-min">00</span>:<span id="timer-sec">00</span></div></div>
-        </div>
-
-        <div class="relative p-4 mt-2">
-            <div id="bet-lock-overlay" class="hidden absolute inset-0 flex flex-col items-center justify-center rounded-2xl z-10 bg-black/50"><div id="lock-count-num" class="text-9xl font-black text-white/90">5</div></div>
-            <div class="space-y-4">
-                <div class="flex gap-3">
-                    <button onclick="openBet('Green', '#10b981')" class="flex-1 bg-green-500 text-white font-black py-4 rounded-2xl">Green</button>
-                    <button onclick="openBet('Violet', '#8b5cf6')" class="flex-1 bg-purple-500 text-white font-black py-4 rounded-2xl">Violet</button>
-                    <button onclick="openBet('Red', '#ef4444')" class="flex-1 bg-red-500 text-white font-black py-4 rounded-2xl">Red</button>
-                </div>
-                <div style="background: var(--card-bg);" class="p-5 rounded-[30px] border border-white/5">
-                    <div class="grid grid-cols-5 gap-4 mb-6">
-                        <button onclick="openBet('0', '#8b5cf6')" class="w-10 h-10 rounded-full bg-purple-500 text-white font-bold mx-auto">0</button>
-                        <button onclick="openBet('1', '#10b981')" class="w-10 h-10 rounded-full bg-green-500 text-white font-bold mx-auto">1</button>
-                        <button onclick="openBet('2', '#ef4444')" class="w-10 h-10 rounded-full bg-red-500 text-white font-bold mx-auto">2</button>
-                        <button onclick="openBet('3', '#10b981')" class="w-10 h-10 rounded-full bg-green-500 text-white font-bold mx-auto">3</button>
-                        <button onclick="openBet('4', '#ef4444')" class="w-10 h-10 rounded-full bg-red-500 text-white font-bold mx-auto">4</button>
-                        <button onclick="openBet('5', '#10b981')" class="w-10 h-10 rounded-full bg-green-500 text-white font-bold mx-auto">5</button>
-                        <button onclick="openBet('6', '#ef4444')" class="w-10 h-10 rounded-full bg-red-500 text-white font-bold mx-auto">6</button>
-                        <button onclick="openBet('7', '#10b981')" class="w-10 h-10 rounded-full bg-green-500 text-white font-bold mx-auto">7</button>
-                        <button onclick="openBet('8', '#ef4444')" class="w-10 h-10 rounded-full bg-red-500 text-white font-bold mx-auto">8</button>
-                        <button onclick="openBet('9', '#10b981')" class="w-10 h-10 rounded-full bg-green-500 text-white font-bold mx-auto">9</button>
-                    </div>
-                    <div class="flex gap-3">
-                        <button onclick="openBet('Big', '#f59e0b')" class="flex-1 bg-orange-400 text-white font-black py-3 rounded-xl">BIG</button>
-                        <button onclick="openBet('Small', '#3b82f6')" class="flex-1 bg-blue-500 text-white font-black py-3 rounded-xl">SMALL</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="px-4 mt-2">
-            <div class="bg-slate-900 rounded-t-2xl flex p-1">
-                <button onclick="switchTab('records')" id="tab-records" class="flex-1 p-3 font-bold text-gray-400">Game history</button>
-                <button onclick="switchTab('my')" id="tab-my" class="flex-1 p-3 font-bold tab-active">My History</button>
-            </div>
-            <div id="content-records" class="hidden bg-[#1e293b] min-h-[300px] rounded-b-2xl overflow-hidden"><table class="w-full text-center text-xs"><thead><tr class="text-gray-400 border-b border-gray-700"><th class="p-3">Period</th><th class="p-3">Num</th><th class="p-3">Size</th></tr></thead><tbody id="records-body"></tbody></table></div>
-            <div id="content-my" class="bg-[#1e293b] min-h-[300px] rounded-b-2xl overflow-hidden"><table class="w-full text-center text-[10px]"><thead><tr class="text-gray-400 border-b border-gray-700"><th class="p-3">Period</th><th class="p-3">Pick</th><th class="p-3">Amount</th><th class="p-3">Status</th></tr></thead><tbody id="my-history-body"></tbody></table></div>
-        </div>
-
-        <div id="bet-popup" class="fixed bottom-0 left-0 w-full z-[3000] invisible translate-y-full transition-transform duration-300">
-            <div id="pop-header" class="p-4 text-center text-white" style="clip-path: polygon(0 0, 100% 0, 100% 80%, 50% 100%, 0 80%);"><div id="pop-title" class="text-sm font-bold uppercase">Win Go</div><div class="bg-white text-black px-5 py-1 rounded inline-block font-bold mt-2">Select <span id="popup-selection">?</span></div></div>
-            <div class="p-5 space-y-6"><div class="flex justify-between items-center"><span>Unit Price</span><div class="flex gap-2"><button onclick="setBase(1, this)" class="btn-val px-4 py-2 rounded bg-slate-800 active">1</button><button onclick="setBase(10, this)" class="btn-val px-4 py-2 rounded bg-slate-800">10</button><button onclick="setBase(100, this)" class="btn-val px-4 py-2 rounded bg-slate-800">100</button></div></div><div class="flex justify-between items-center"><span>Quantity</span><div class="flex items-center gap-4"><button onclick="adjQty(-1)" class="w-8 h-8 bg-purple-600 rounded">-</button><input type="number" id="qty-input" value="1" class="w-12 bg-transparent text-center font-bold outline-none"><button onclick="adjQty(1)" class="w-8 h-8 bg-purple-600 rounded">+</button></div></div></div>
-            <div class="flex h-14"><button onclick="closePopups()" class="flex-1 bg-slate-800 font-bold">Cancel</button><button id="pop-confirm-btn" onclick="confirmBet()" class="flex-[2] font-bold text-lg">Total ৳<span id="total-bet-display">1.00</span></button></div>
-        </div>
-        <div id="overlay" onclick="closePopups()" class="fixed inset-0 bg-black/60 z-[2500] hidden"></div>
-    </div>
-
-    <script>
-        const firebaseConfig = {
-            apiKey: atob("QUl6YVN5QkxGb0o0LXY1V0FwYjFGbGc4Y0VyZnFialc2NFhLaC1J"),
-            authDomain: atob("YmV0LXdpbi04NGQzNS5maXJlYmFzZWFwcC5jb20="),
-            databaseURL: atob("aHR0cHM6Ly9iZXQtd2luLTg0ZDM1LWRlZmF1bHQtcnRkYi5maXJlYmFzZWlvLmNvbQ=="),
-            projectId: atob("YmV0LXdpbi04NGQzNS4="),
-            storageBucket: atob("YmV0LXdpbi04NGQzNS5maXJlYmFzZWFwcC5jb20="),
-            messagingSenderId: atob("NTAxMzQ1NjU1Ng=="),
-            appId: atob("MTo1MDEzNDU2NTU2OndlYjo0YTViMWYyYmRkNzI4YTI2NTYwMTA5")
-        };
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.database();
-
-        let userPhone = localStorage.getItem('userPhone') || null;
-        let balance = 0, lastBalance = 0, currentMode = '1m', currentPeriod = "", baseAmount = 1, qty = 1, tempBetPick = "", lastResultProcessed = "";
-        const apiUrls = { '30s': 'https://draw.ar-lottery01.com/WinGo/WinGo_30S/GetHistoryIssuePage.json', '1m': 'https://draw.ar-lottery01.com/WinGo/WinGo_1M/GetHistoryIssuePage.json', '3m': 'https://draw.ar-lottery01.com/WinGo/WinGo_3M/GetHistoryIssuePage.json', '5m': 'https://draw.ar-lottery01.com/WinGo/WinGo_5M/GetHistoryIssuePage.json' };
-
-        // --- Auth Functions ---
         function toggleAuth() {
             document.getElementById('login-form').classList.toggle('hidden');
             document.getElementById('register-form').classList.toggle('hidden');
         }
 
-        async function handleAuth(type) {
-            if (type === 'register') {
-                const phone = document.getElementById('reg-phone').value;
-                const pass = document.getElementById('reg-pass').value;
-                const confirm = document.getElementById('reg-confirm').value;
-                if (!phone || phone.length < 10) return showToast("সঠিক মোবাইল নাম্বার দিন");
-                if (pass !== confirm) return showToast("পাসওয়ার্ড মিলেনি!");
-                const userRef = db.ref(`users/${phone}`);
-                const snap = await userRef.once('value');
-                if (snap.exists()) return showToast("নাম্বারটি আগে থেকেই আছে");
-                await userRef.set({ password: pass, balance: 88, isFirstDeposit: true });
-                showToast("অভিনন্দন! ৮৮ টাকা বোনাস পেয়েছেন।");
-                loginUser(phone);
-            } else {
-                const phone = document.getElementById('auth-phone').value;
-                const pass = document.getElementById('auth-pass').value;
-                const snap = await db.ref(`users/${phone}`).once('value');
-                if (snap.exists() && snap.val().password === pass) loginUser(phone);
-                else showToast("ভুল ফোন বা পাসওয়ার্ড");
-            }
-        }
-
-        function loginUser(phone) {
-            userPhone = phone;
-            localStorage.setItem('userPhone', phone);
-            document.getElementById('auth-screen').style.display = 'none';
-            document.getElementById('game-content').style.display = 'block';
-            initGame();
-        }
-
         function logout() { localStorage.removeItem('userPhone'); location.reload(); }
 
         // --- Game Logic ---
-        function initGame() {
-            const userRef = db.ref(`users/${userPhone}`);
-            userRef.on('value', s => { 
-                const data = s.val(); if(!data) return;
-                balance = data.balance || 0; 
+        function startApp() {
+            db.ref(`users/${userPhone}/balance`).on('value', s => {
+                balance = s.val() || 0;
                 document.getElementById('user-balance').innerText = balance.toFixed(2);
-                if (data.isFirstDeposit && balance > 88 && lastBalance === 88) {
-                    const depositAmt = balance - 88;
-                    if (depositAmt >= 250) {
-                        userRef.update({ balance: balance + depositAmt, isFirstDeposit: false });
-                        showToast(`৳${depositAmt} ডিপোজিট বোনাস পেয়েছেন!`);
-                    }
-                }
-                lastBalance = balance;
             });
+            updateTimer();
+            setInterval(updateTimer, 1000);
+            loadMyHistory();
+        }
 
-            db.ref(`users/${userPhone}/bet_history`).limitToLast(15).on('value', s => {
-                let html = ""; s.forEach(c => { const d = c.val(); const color = d.status === 'Win' ? 'text-green-500' : (d.status === 'Loss' ? 'text-red-500' : 'text-orange-400'); html = `<tr class="border-b border-gray-800"><td class="p-3">${d.period.slice(-4)}</td><td class="p-3 font-bold">${d.pick}</td><td class="p-3">৳${d.amount}</td><td class="p-3 ${color}">${d.status}</td></tr>` + html; });
+        async function updateTimer() {
+            const now = Math.floor(Date.now() / 1000);
+            const timeLeft = 60 - (now % 60);
+            document.getElementById('timer-display').innerText = `00:${timeLeft < 10 ? '0'+timeLeft : timeLeft}`;
+            
+            // Generate Period ID (Dummy for UI)
+            const pId = new Date().toISOString().replace(/[-T:Z.]/g, "").slice(0, 12);
+            currentPeriod = pId;
+            document.getElementById('current-period').innerText = pId;
+        }
+
+        function openBet(pick, color) {
+            selectedPick = pick;
+            document.getElementById('popup-selection').innerText = pick;
+            document.getElementById('pop-header').style.backgroundColor = color;
+            document.getElementById('confirm-btn').style.backgroundColor = color;
+            document.getElementById('bet-popup').classList.add('show-popup');
+            document.getElementById('overlay').style.display = 'block';
+        }
+
+        async function confirmBet() {
+            if(balance < baseAmount) return alert("ব্যালেন্স নেই");
+            
+            await db.ref(`users/${userPhone}`).update({ balance: balance - baseAmount });
+            await db.ref(`users/${userPhone}/bet_history`).push({
+                period: currentPeriod,
+                pick: selectedPick,
+                amount: baseAmount,
+                status: 'Pending'
+            });
+            alert("বেট সফল হয়েছে!");
+            closePopups();
+        }
+
+        function closePopups() {
+            document.getElementById('bet-popup').classList.remove('show-popup');
+            document.getElementById('overlay').style.display = 'none';
+        }
+
+        function setBase(amt) {
+            baseAmount = amt;
+            document.getElementById('total-bet-text').innerText = amt;
+        }
+
+        function switchTab(t) {
+            document.getElementById('content-my').classList.add('hidden');
+            document.getElementById('content-records').classList.add('hidden');
+            document.getElementById('tab-my').classList.remove('tab-active');
+            document.getElementById('tab-records').classList.remove('tab-active');
+
+            document.getElementById('content-' + t).classList.remove('hidden');
+            document.getElementById('tab-' + t).classList.add('tab-active');
+        }
+
+        function loadMyHistory() {
+            db.ref(`users/${userPhone}/bet_history`).limitToLast(10).on('value', s => {
+                let html = "";
+                s.forEach(c => {
+                    const d = c.val();
+                    html = `<tr class="border-b border-white/5"><td class="p-3">${d.period.slice(-4)}</td><td class="p-3">${d.pick}</td><td class="p-3">৳${d.amount}</td><td class="p-3 text-orange-400">${d.status}</td></tr>` + html;
+                });
                 document.getElementById('my-history-body').innerHTML = html || "<tr><td colspan='4' class='p-5'>No History</td></tr>";
             });
-
-            db.ref(`users/${userPhone}/wallet`).on('value', s => {
-                if(s.exists()){
-                    const w = s.val(); document.getElementById('saved-wallet-info').innerText = `${w.type}: ${w.number}`;
-                    document.getElementById('add-bank-section').classList.add('hidden');
-                    document.getElementById('withdraw-form').classList.remove('hidden');
-                } else {
-                    document.getElementById('add-bank-section').classList.remove('hidden');
-                    document.getElementById('withdraw-form').classList.add('hidden');
-                }
-            });
-            setInterval(fetchGameData, 1000);
         }
 
-        async function fetchGameData() { try { const res = await fetch(apiUrls[currentMode]); const json = await res.json(); const latest = json.data.list[0]; currentPeriod = (BigInt(latest.issueNumber) + 1n).toString(); document.getElementById('current-period').innerText = currentPeriod; const duration = currentMode.includes('s') ? 30 : parseInt(currentMode) * 60; const timeLeft = duration - (Math.floor(Date.now() / 1000) % duration); document.getElementById('timer-sec').innerText = String(timeLeft % 60).padStart(2, '0'); document.getElementById('timer-min').innerText = String(Math.floor(timeLeft / 60)).padStart(2, '0'); if (timeLeft <= 5) { document.getElementById('bet-lock-overlay').classList.remove('hidden'); document.getElementById('lock-count-num').innerText = timeLeft; closePopups(); } else { document.getElementById('bet-lock-overlay').classList.add('hidden'); } if (timeLeft === duration && lastResultProcessed !== latest.issueNumber) { checkWinning(latest); lastResultProcessed = latest.issueNumber; } renderHistory(json.data.list); } catch (e) {} }
+        function openDeposit() { alert("বিকাশ/নগদ ডিপোজিট সিস্টেম লোড হচ্ছে..."); }
+        function openWithdraw() { alert("উইথড্র সিস্টেম লোড হচ্ছে..."); }
 
-        async function checkWinning(result) { const resNum = parseInt(result.number); const resColor = (resNum % 2 === 0) ? "Red" : "Green"; const resSize = (resNum >= 5) ? "Big" : "Small"; const snapshot = await db.ref(`users/${userPhone}/bet_history`).once('value'); snapshot.forEach(async (child) => { const bet = child.val(); if (bet.period === result.issueNumber && bet.status === 'Pending') { let win = false, winMult = 0; if (bet.pick === result.number) { win = true; winMult = 9; } else if (bet.pick === resColor) { win = true; winMult = 2; } else if (bet.pick === resSize) { win = true; winMult = 2; } if (win) { const winAmt = bet.amount * winMult; await db.ref(`users/${userPhone}`).update({ balance: balance + winAmt }); await db.ref(`users/${userPhone}/bet_history/${child.key}`).update({ status: 'Win', winAmount: winAmt }); showWinPopup(winAmt); } else { await db.ref(`users/${userPhone}/bet_history/${child.key}`).update({ status: 'Loss' }); } } }); }
-
-        function openBet(pick, color) { tempBetPick = pick; document.getElementById('pop-header').style.backgroundColor = color; document.getElementById('pop-confirm-btn').style.backgroundColor = color; document.getElementById('popup-selection').innerText = pick; const pop = document.getElementById('bet-popup'); pop.style.transform = "translateY(0)"; pop.style.visibility = "visible"; document.getElementById('overlay').classList.remove('hidden'); updatePopupTotal(); }
-        async function confirmBet() { const total = parseFloat(document.getElementById('total-bet-display').innerText); if (balance < total) return showToast("ব্যালেন্স কম আছে"); await db.ref(`users/${userPhone}`).update({ balance: balance - total }); await db.ref(`users/${userPhone}/bet_history`).push({ period: currentPeriod, pick: tempBetPick, amount: total, status: 'Pending' }); showToast("সফল হয়েছে!"); closePopups(); }
-        
-        // --- Deposit/Withdraw Persistence ---
-        async function handleDepositNext() { 
-            const amt = parseInt(document.getElementById('recharge-amount').value); 
-            if (!amt || amt < 250) return showToast("সর্বনিম্ন ২৫০ টাকা"); 
-            const depData = { phone: userPhone, amount: amt, status: 'Pending', time: new Date().toLocaleString() };
-            const depKey = db.ref('deposits').push().key;
-            await db.ref(`deposits/${depKey}`).set(depData);
-            await db.ref(`users/${userPhone}/deposit_history/${depKey}`).set(depData);
-            window.location.href = `https://tanvir323-l.github.io/payment-system-tanvir-for-free?user=${userPhone}&amount=${amt}`;
-        }
-
-        async function submitWithdraw() { 
-            const amt = parseInt(document.getElementById('withdraw-amount').value); 
-            if(!amt || amt < 500) return showToast("সর্বনিম্ন ৫০০ টাকা"); 
-            if(balance < amt) return showToast("ব্যালেন্স কম আছে"); 
-            await db.ref(`users/${userPhone}`).update({ balance: balance - amt }); 
-            const witData = { phone: userPhone, amount: amt, status: 'Pending', time: new Date().toLocaleString() };
-            const witKey = db.ref(`admin/withdraw_requests`).push().key;
-            await db.ref(`admin/withdraw_requests/${witKey}`).set(witData);
-            await db.ref(`users/${userPhone}/withdraw_history/${witKey}`).set(witData);
-            showToast("অনুরোধ পাঠানো হয়েছে!"); closePopups(); 
-        }
-
-        // --- FIXED HISTORY FUNCTION ---
-        async function showHistory(type) {
-            const title = type === 'deposit' ? "Deposit History" : "Withdraw History";
-            const path = type === 'deposit' ? `users/${userPhone}/deposit_history` : `users/${userPhone}/withdraw_history`;
-            
-            document.getElementById('history-title').innerText = title;
-            document.getElementById('history-list-body').innerHTML = "<tr><td colspan='3' class='p-10 text-center'>Loading...</td></tr>";
-            
-            const pop = document.getElementById('history-modal');
-            pop.style.transform = "translateY(0)"; pop.style.visibility = "visible";
-            document.getElementById('overlay').classList.remove('hidden');
-
-            // Using once('value') to fix loading issue
-            const snap = await db.ref(path).once('value');
-            if (snap.exists()) {
-                let html = "";
-                snap.forEach(child => {
-                    const d = child.val();
-                    const statusColor = d.status === 'Pending' ? 'text-orange-400' : (d.status === 'Rejected' ? 'text-red-500' : 'text-green-500');
-                    html = `<tr class="border-b border-white/5"><td class="py-4 text-[10px] text-gray-400">${d.time.split(',')[0]}</td><td class="py-4 text-center font-bold text-white">৳${d.amount}</td><td class="py-4 text-right font-bold ${statusColor}">${d.status}</td></tr>` + html;
-                });
-                document.getElementById('history-list-body').innerHTML = html;
-            } else {
-                document.getElementById('history-list-body').innerHTML = "<tr><td colspan='3' class='p-10 text-center text-gray-600'>No Records Found</td></tr>";
-            }
-        }
-
-        // --- Helpers ---
-        function setRecharge(amt) { document.getElementById('recharge-amount').value = amt; }
-        function setBase(v, el) { baseAmount = v; document.querySelectorAll('.btn-val').forEach(b => b.classList.remove('active')); el.classList.add('active'); updatePopupTotal(); }
-        function adjQty(n) { qty = Math.max(1, (parseInt(document.getElementById('qty-input').value) || 1) + n); document.getElementById('qty-input').value = qty; updatePopupTotal(); }
-        function updatePopupTotal() { document.getElementById('total-bet-display').innerText = (baseAmount * (parseInt(document.getElementById('qty-input').value) || 1)).toFixed(2); }
-        function openDepositPopup() { document.getElementById('deposit-popup').style.visibility = "visible"; document.getElementById('deposit-popup').style.transform = "translateY(0)"; document.getElementById('overlay').classList.remove('hidden'); }
-        function openWithdrawPopup() { document.getElementById('withdraw-popup').style.visibility = "visible"; document.getElementById('withdraw-popup').style.transform = "translateY(0)"; document.getElementById('overlay').classList.remove('hidden'); }
-        function closePopups() { document.querySelectorAll('#bet-popup, #deposit-popup, #withdraw-popup, #history-modal').forEach(p => { p.style.transform = "translateY(100%)"; p.style.visibility = "hidden"; }); document.getElementById('overlay').classList.add('hidden'); }
-        function switchMode(m) { currentMode = m; document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('mode-btn-active')); document.getElementById('btn-'+m).classList.add('mode-btn-active'); document.getElementById('display-mode-label').innerText = "Win Go " + m; fetchGameData(); }
-        function switchTab(t) { document.querySelectorAll('button[id^="tab-"]').forEach(b => b.classList.remove('tab-active', 'text-white')); document.querySelectorAll('div[id^="content-"]').forEach(c => c.classList.add('hidden')); document.getElementById('tab-'+t).classList.add('tab-active', 'text-white'); document.getElementById('content-'+t).classList.remove('hidden'); }
-        function renderHistory(list) { document.getElementById('records-body').innerHTML = list.slice(0, 10).map(h => `<tr class="border-b border-gray-800"><td class="p-3">${h.issueNumber}</td><td class="p-3 font-bold" style="color:${parseInt(h.number)%2===0?'#ef4444':'#10b981'}">${h.number}</td><td class="p-3 font-bold">${parseInt(h.number)>=5?'Big':'Small'}</td></tr>`).join(''); }
-        function showWinPopup(amt) { document.getElementById('win-amount-text').innerText = amt.toFixed(2); document.getElementById('win-popup-wrapper').style.display = 'flex'; }
-        function closeWinPopup() { document.getElementById('win-popup-wrapper').style.display = 'none'; }
-        function showToast(m) { const t = document.getElementById('toast-msg'); t.innerText = m; t.style.display = 'block'; setTimeout(() => t.style.display = 'none', 3000); }
-        function saveWallet() { const type = document.getElementById('wallet-type').value; const num = document.getElementById('wallet-number').value; if(num.length < 10) return showToast("নাম্বারটি ভুল"); db.ref(`users/${userPhone}/wallet`).set({ type, number: num }); }
-
-        window.onload = () => { if(userPhone) loginUser(userPhone); };
+        // Initial Load
+        window.onload = () => { if(userPhone) completeLogin(userPhone); };
     </script>
 </body>
-</html>
+    </html>
